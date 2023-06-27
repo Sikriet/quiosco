@@ -30,7 +30,7 @@ export default function Sidebar() {
         <div className="my-5 px-5">
             <button
                 type="button"
-                className="text-center bg-red-500 w-full p-3 font-bold text-white truncate"
+                className="text-center bg-red-500 w-full p-3 font-bold text-white truncate hover:bg-red-600"
                 onClick={logout}
             >
                 Cancelar Orden

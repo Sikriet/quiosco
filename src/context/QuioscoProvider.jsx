@@ -50,14 +50,16 @@ const QuioscoProvider = ({children}) => {
         setProducto(producto)
     }
 
-    const handleAgregarPedido = ({categoria_id, ...producto}) => { // Elimina "categoria_id" del objeto de producto
+    // Elimina "categoria_id" del objeto de producto
+    const handleAgregarPedido = ({categoria_id, ...producto}) => { 
         
         if(pedido.some( pedidoState => pedidoState.id === producto.id )) {
             const pedidoActualizado = pedido.map( pedidoState => pedidoState.id === producto.id ? producto : pedidoState )
             setPedido(pedidoActualizado)
             toast.success('Guardado Correctamente')
         } else {
-            setPedido([...pedido, producto]) // Toma una copia de lo que hay en pedido y agregale este producto nuevo
+            // Toma una copia de lo que hay en pedido y agregale este producto nuevo
+            setPedido([...pedido, producto]) 
             toast.success('Agregado el Pedido')
         }
     }
@@ -121,10 +123,15 @@ const QuioscoProvider = ({children}) => {
         }
     }
 
-    const handleClickProductoAgotado = async id => {
+    const handleClickEditarProducto = async (id, nombre, precio, disponible, stock) => {
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
-            await clienteAxios.put(`/api/productos/${id}`, null, {
+            await clienteAxios.put(`/api/productos/${id}`, {
+                nombre,
+                precio,
+                disponible,
+                stock,
+            }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -151,7 +158,7 @@ const QuioscoProvider = ({children}) => {
                 total,
                 handleSubmitNuevaOrden,
                 handleClickCompletarPedido,
-                handleClickProductoAgotado
+                handleClickEditarProducto
             }}
         >{children}</QuioscoContext.Provider>
     )

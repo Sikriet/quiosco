@@ -1,5 +1,4 @@
 // Cliente de Axios para consultar la API.
-
 import axios from "axios";
 
 const clienteAxios = axios.create({

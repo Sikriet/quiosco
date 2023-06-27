@@ -1,10 +1,10 @@
 import { formatearDinero } from "../helpers"
 import useQuiosco from "../hooks/useQuiosco"
 
-export default function Producto({producto, botonAgregar = false, botonDisponible = false}) {
+export default function Producto({producto, botonAgregar = false, botonEditarProducto = false}) {
 
-    const { handleClickModal, handleSetProducto, handleClickProductoAgotado } = useQuiosco();
-    const { nombre, imagen, precio } = producto
+    const { handleClickModal, handleClickModalEditar, handleSetProducto, handleClickEditarProducto } = useQuiosco();
+    const { nombre, imagen, precio, stock } = producto
 
     return (
         <div className="border p-3 shadow bg-white">
@@ -19,8 +19,25 @@ export default function Producto({producto, botonAgregar = false, botonDisponibl
                 <p className="mt-5 font-black text-4xl text-amber-500">
                     { formatearDinero(precio)}
                 </p>
+                <p className="mt-5 font-black text-2xl">
+                    Stock Actual: {stock}
+                </p>
 
                 {botonAgregar && (
+                <button
+                    type="button"
+                    className={`bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold ${stock === 0 ? 'cursor-not-allowed' : ''}`}
+                    onClick={() => {
+                        handleClickModal();
+                        handleSetProducto(producto);
+                    }}
+                    disabled={stock === 0}
+                >
+                    Agregar
+                </button>
+                )}
+
+                {botonEditarProducto && (
                 <button
                     type="button"
                     className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
@@ -29,18 +46,8 @@ export default function Producto({producto, botonAgregar = false, botonDisponibl
                         handleSetProducto(producto);
                     }}
                 >
-                    Agregar
+                    Editar Producto
                 </button>
-                )}
-
-                {botonDisponible && (
-                    <button
-                        type="button"
-                        className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
-                        onClick={() => handleClickProductoAgotado(producto.id)}
-                    >
-                        Producto Agotado
-                    </button>
                 )}
 
             </div>

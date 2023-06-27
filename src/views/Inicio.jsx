@@ -28,7 +28,7 @@ export default function Inicio() {
       </div>
     );
 
-  const productos = data.data.filter(producto => producto.categoria_id === categoriaActual.id)
+  const productos = data?.data.filter(producto => producto.categoria_id === categoriaActual.id)
 
   return (
     <>
