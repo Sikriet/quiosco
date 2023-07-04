@@ -81,7 +81,7 @@ export default function ModalProducto() {
             <button
                 type='button'
                 onClick={() => {
-                    if(cantidad >= 5) return
+                    if(cantidad >= producto.stock) return
                     setCantidad(cantidad + 1);
                 }}
             >

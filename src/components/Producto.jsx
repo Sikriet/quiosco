@@ -26,14 +26,14 @@ export default function Producto({producto, botonAgregar = false, botonEditarPro
                 {botonAgregar && (
                 <button
                     type="button"
-                    className={`bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold ${stock === 0 ? 'cursor-not-allowed' : ''}`}
+                    className={`text-white w-full mt-5 p-3 uppercase font-bold ${stock === 0 ? 'bg-indigo-100 hover:cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-800'}`}
                     onClick={() => {
                         handleClickModal();
                         handleSetProducto(producto);
                     }}
                     disabled={stock === 0}
                 >
-                    Agregar
+                    {stock === 0 ? 'Agotado' : 'Agregar'}
                 </button>
                 )}
 

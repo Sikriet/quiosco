@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useQuiosco from "../hooks/useQuiosco"
 import { formatearDinero } from "../helpers";
 import { InputAdornment, TextField, FormControlLabel, Switch } from "@mui/material";
+import { toast } from 'react-toastify';
 
 export default function ModalEditarProducto() {
 
@@ -82,6 +83,7 @@ export default function ModalEditarProducto() {
                     type="button"
                     className="flex bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
                     onClick={() => {
+                        if(!nombre || precio < 0 || stock < 0) return toast.error('Verifique los datos ingresados');
                         handleClickEditarProducto(producto.id, nombre, precio, disponible, stock);
                         handleClickModal();
                     }}

@@ -136,8 +136,10 @@ const QuioscoProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             })
+            toast.success('Editado Correctamente')
         } catch (error) {
             console.log(error)
+            toast.error('Error al editar')
         }
     }
 
