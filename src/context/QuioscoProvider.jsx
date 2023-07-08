@@ -26,8 +26,8 @@ const QuioscoProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            setCategorias(data?.data)
-            setCategoriaActual(data?.data[0])
+            setCategorias(data.data)
+            setCategoriaActual(data.data[0])
         } catch (error) {
             console.log(error)
         }
