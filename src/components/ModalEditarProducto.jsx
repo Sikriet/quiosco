@@ -14,7 +14,7 @@ export default function ModalEditarProducto() {
     const [ stock, setStock ] = useState(producto.stock || 1);
 
     return (
-        <div className="md:flex items-center gap-10">
+        <div className="md:flex items-center gap-10 relative">
             {/* md:w-1/3 Es para que abarque 1 de 3 columnas */}
             <div className="md:w-1/3">
                 <img 
@@ -24,9 +24,11 @@ export default function ModalEditarProducto() {
             </div>
 
             <div className="md:w-2/3">
-                <div className="flex justify-end">
+                <div className="absolute top-0 right-0 mt-2 mr-2">
                     <button 
-                        onClick={handleClickModal}>
+                        onClick={handleClickModal}
+                        className='flex bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded w-full md:w-auto md:mt-0 md:mr-0'
+                        >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

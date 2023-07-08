@@ -18,7 +18,7 @@ export default function ModalProducto() {
     }, [pedido]) // Arreglo de dependencias (Opcionales). Cada vez que "pedido" cambie, se vuelve a ejecutar
 
     return (
-      <div className="md:flex gap-10">
+      <div className="md:flex gap-10 relative">
         <div className="md:w-1/3">
           <img
             src={`/img/${producto.imagen}.jpg`}
@@ -27,8 +27,11 @@ export default function ModalProducto() {
         </div>
 
         <div className="md:w-2/3">
-          <div className="flex justify-end">
-            <button onClick={handleClickModal}>
+          <div className="absolute top-0 right-0 mt-2 mr-2">
+            <button 
+              onClick={handleClickModal}
+              className='flex bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded w-full md:w-auto md:mt-0 md:mr-0'
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -56,7 +59,7 @@ export default function ModalProducto() {
             <button
                 type='button'
                 onClick={() => {
-                    if(cantidad <= 1) return
+                    if(cantidad <= 1) return;
                     setCantidad(cantidad - 1);
                 }}
             >
@@ -107,9 +110,9 @@ export default function ModalProducto() {
             className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
             onClick={() => { 
               // Los 3 puntos son para que todo (En este caso "Cantidad") se agrege a un solo objeto
-              handleAgregarPedido({...producto, cantidad})
+              handleAgregarPedido({...producto, cantidad});
               // Para que luego de agregar un pedido se cierre la ventana automaticamente
-              handleClickModal()
+              handleClickModal();
             }} 
           >
                 {edicion ? 'Guardar Cambios' : 'Añadir al Pedido'}
