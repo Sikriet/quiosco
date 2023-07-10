@@ -2,13 +2,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-  [plugins.inputs]
-    assetPath = "public"
-
-[[plugins]]
-  package = "netlify-plugin-large-media"
-  [plugins.inputs]
-    base = "/img"
