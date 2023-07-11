@@ -31,13 +31,13 @@ const QuioscoProvider = ({children}) => {
                 if (data.data && data.data.length > 0) {
                     setCategoriaActual(data.data[0]);
                 } else {
-                    console.error("data.data Vacío");
+                    console.log("data.data Vacío");
                 }
             } else {
-                console.error("data Vacío");
+                console.log("data Vacío");
             }
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
@@ -114,7 +114,7 @@ const QuioscoProvider = ({children}) => {
                 logout();
             }, 3000);
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
@@ -127,18 +127,17 @@ const QuioscoProvider = ({children}) => {
                 }
             })
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    const handleClickEditarProducto = async (id, nombre, precio, disponible, categoria_id, stock) => {
+    const handleClickEditarProducto = async (id, nombre, precio, disponible, stock) => {
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
             await clienteAxios.put(`/api/productos/${id}`, {
                 nombre,
                 precio,
                 disponible,
-                categoria_id,
                 stock,
             }, {
                 headers: {
@@ -147,7 +146,7 @@ const QuioscoProvider = ({children}) => {
             })
             toast.success('Editado Correctamente')
         } catch (error) {
-            console.error(error)
+            console.log(error)
             toast.error('Error al editar')
         }
     }
