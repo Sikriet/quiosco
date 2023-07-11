@@ -131,12 +131,13 @@ const QuioscoProvider = ({children}) => {
         }
     }
 
-    const handleClickEditarProducto = async (id, nombre, precio, disponible, stock) => {
+    const handleClickEditarProducto = async (id, nombre, precio, categoria_id, disponible, stock) => {
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
             await clienteAxios.put(`/api/productos/${id}`, {
                 nombre,
                 precio,
+                categoria_id,
                 disponible,
                 stock,
             }, {
