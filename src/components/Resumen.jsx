@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import ResumenProducto from "./ResumenProducto";
 
 export default function Resumen() {
-    const { pedido, total, handleSubmitNuevaOrden } = useQuiosco();
+    const { pedido, total, handleSubmitNuevaOrden, handleClickActualizarStock } = useQuiosco();
     const { logout } = useAuth({})
 
     const comprobarPedido = () => pedido.length === 0;
@@ -12,6 +12,7 @@ export default function Resumen() {
     const handleSubmit = e => {
         e.preventDefault();
 
+        handleClickActualizarStock();
         handleSubmitNuevaOrden(logout);
     }
 

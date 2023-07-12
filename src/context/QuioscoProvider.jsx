@@ -154,6 +154,33 @@ const QuioscoProvider = ({children}) => {
         }
     }
 
+    const handleClickActualizarStock = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        try {
+          pedido.map(async producto => {
+            const nuevoStock = producto.stock - producto.cantidad;
+
+            await clienteAxios.put(
+                `/api/productos/${producto.id}`,
+                {
+                    stock: nuevoStock,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+          })
+
+          console.log('Stock actualizado correctamente');
+        } catch (error) {
+          console.log(error);
+          toast.error('Error al actualizar el stock');
+        }
+      };
+      
+
     const handleClickCrearProducto = async (nombre, precio, categoria_id, disponible, stock) => {
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
@@ -194,7 +221,8 @@ const QuioscoProvider = ({children}) => {
                 handleClickCompletarPedido,
                 handleClickEditarProducto,
                 handleClickCrearProducto,
-                editarProducto
+                editarProducto,
+                handleClickActualizarStock
             }}
         >{children}</QuioscoContext.Provider>
     )
