@@ -35,15 +35,13 @@ export default function AdminLayout() {
         </main>
       </div>
 
-      {modal && (
         <Modal isOpen={modal} style={customStyles}>
           {editarProducto ? (
-            <ModalEditarProducto onClose={() => setModal(false)} />
+            <ModalEditarProducto />
           ) : (
-            <ModalCrearProducto onClose={() => setModal(false)} />
+            <ModalCrearProducto />
           )}
         </Modal>
-      )}
 
       <ToastContainer />
     </>

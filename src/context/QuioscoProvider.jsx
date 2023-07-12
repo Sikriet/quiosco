@@ -7,12 +7,12 @@ const QuioscoContext = createContext();
 const QuioscoProvider = ({children}) => {
 
     const [categorias, setCategorias] = useState([]);
-    const [categoriaActual, setCategoriaActual] = useState({})
-    const [modal, setModal] = useState(false)
-    const [editarProducto, setEditarProducto] = useState(false)
-    const [producto, setProducto] = useState({})
-    const [pedido, setPedido] = useState([])
-    const [total, setTotal] = useState(0)
+    const [categoriaActual, setCategoriaActual] = useState({});
+    const [modal, setModal] = useState(false);
+    const [editarProducto, setEditarProducto] = useState(false);
+    const [producto, setProducto] = useState({});
+    const [pedido, setPedido] = useState([]);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const nuevoTotal = pedido.reduce( (total, producto) => (producto.precio * producto.cantidad) + total, 0 )
@@ -51,10 +51,9 @@ const QuioscoProvider = ({children}) => {
         setCategoriaActual(categoria)
     }
 
-    const handleClickModal = () => {
+    const handleClickModal = (editar) => {
         setModal(!modal);
-        setEditarProducto(!editarProducto);
-        console.log(editarProducto);
+        setEditarProducto(editar);
     }
 
     const handleSetProducto = producto => {
@@ -194,7 +193,8 @@ const QuioscoProvider = ({children}) => {
                 handleSubmitNuevaOrden,
                 handleClickCompletarPedido,
                 handleClickEditarProducto,
-                handleClickCrearProducto
+                handleClickCrearProducto,
+                editarProducto
             }}
         >{children}</QuioscoContext.Provider>
     )

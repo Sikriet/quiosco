@@ -6,7 +6,7 @@ import unidecode from "unidecode";
 import useQuiosco from "../hooks/useQuiosco";
 
 export default function Productos() {
-  const { handleClickModal, handleSetProducto } = useQuiosco();
+  const { producto, handleClickModal, handleSetProducto } = useQuiosco();
   const [filtro, setFiltro] = useState("");
 
   const token = localStorage.getItem("AUTH_TOKEN");
@@ -47,7 +47,7 @@ export default function Productos() {
           type="button"
           className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 text-white font-bold uppercase rounded"
           onClick={() => {
-            handleClickModal();
+            handleClickModal(false);
             handleSetProducto(producto);
           }}
         >
