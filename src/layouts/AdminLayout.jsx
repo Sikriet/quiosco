@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router-dom';
-import Modal from 'react-modal';
-import { ToastContainer } from 'react-toastify';
+import { Outlet } from "react-router-dom";
+import Modal from "react-modal";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminSidebar from "../components/AdminSidebar";
-import { useAuth } from '../hooks/useAuth';
-import ModalEditarProducto from '../components/ModalEditarProducto';
-import useQuiosco from '../hooks/useQuiosco';
-
+import { useAuth } from "../hooks/useAuth";
+import ModalEditarProducto from "../components/ModalEditarProducto";
+import useQuiosco from "../hooks/useQuiosco";
+import ModalCrearProducto from "../components/ModalCrearProducto";
 
 const customStyles = {
   content: {
@@ -19,28 +19,33 @@ const customStyles = {
   },
 };
 
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 export default function AdminLayout() {
+  useAuth({ middleware: "admin" });
+  const { modal, editarProducto } = useQuiosco();
 
-    useAuth({middleware: 'admin'});
-    const { modal } = useQuiosco();
+  return (
+    <>
+      <div className="md:flex">
+        <AdminSidebar />
 
-    return (
-        <>
-            <div className="md:flex">
-            <AdminSidebar />
+        <main className="flex-1 h-screen overflow-y-scroll bg-gray-100 p-3">
+          <Outlet />
+        </main>
+      </div>
 
-            <main className="flex-1 h-screen overflow-y-scroll bg-gray-100 p-3">
-                <Outlet />
-            </main>
-            </div>
+      {modal && (
+        <Modal isOpen={modal} style={customStyles}>
+          {editarProducto ? (
+            <ModalEditarProducto onClose={() => setModal(false)} />
+          ) : (
+            <ModalCrearProducto onClose={() => setModal(false)} />
+          )}
+        </Modal>
+      )}
 
-            <Modal isOpen={modal} style={customStyles}>
-                <ModalEditarProducto />
-            </Modal>
-
-            <ToastContainer />
-        </>
-    );
+      <ToastContainer />
+    </>
+  );
 }

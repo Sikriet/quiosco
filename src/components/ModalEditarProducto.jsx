@@ -18,7 +18,6 @@ export default function ModalEditarProducto() {
   const { producto, handleClickModal, handleClickEditarProducto, categorias } =
     useQuiosco();
 
-  console.log(producto);
   const [nombre, setNombre] = useState(producto.nombre || "");
   const [precio, setPrecio] = useState(producto.precio || 0);
   const [categoria, setCategoriaId] = useState(producto.categoria_id);
