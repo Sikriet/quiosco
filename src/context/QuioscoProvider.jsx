@@ -7,11 +7,12 @@ const QuioscoContext = createContext();
 const QuioscoProvider = ({children}) => {
 
     const [categorias, setCategorias] = useState([]);
-    const [categoriaActual, setCategoriaActual] = useState({})
-    const [modal, setModal] = useState(false)
-    const [producto, setProducto] = useState({})
-    const [pedido, setPedido] = useState([])
-    const [total, setTotal] = useState(0)
+    const [categoriaActual, setCategoriaActual] = useState({});
+    const [modal, setModal] = useState(false);
+    const [editarProducto, setEditarProducto] = useState(false);
+    const [producto, setProducto] = useState({});
+    const [pedido, setPedido] = useState([]);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const nuevoTotal = pedido.reduce( (total, producto) => (producto.precio * producto.cantidad) + total, 0 )
@@ -50,8 +51,9 @@ const QuioscoProvider = ({children}) => {
         setCategoriaActual(categoria)
     }
 
-    const handleClickModal = () => {
-        setModal(!modal)
+    const handleClickModal = (editar) => {
+        setModal(!modal);
+        setEditarProducto(editar);
     }
 
     const handleSetProducto = producto => {
@@ -152,6 +154,54 @@ const QuioscoProvider = ({children}) => {
         }
     }
 
+    const handleClickActualizarStock = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        try {
+          pedido.map(async producto => {
+            const nuevoStock = producto.stock - producto.cantidad;
+
+            await clienteAxios.put(
+                `/api/productos/${producto.id}`,
+                {
+                    stock: nuevoStock,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+          })
+
+          console.log('Stock actualizado correctamente');
+        } catch (error) {
+          console.log(error);
+          toast.error('Error al actualizar el stock');
+        }
+      };
+      
+
+    const handleClickCrearProducto = async (nombre, precio, categoria_id, disponible, stock) => {
+        const token = localStorage.getItem('AUTH_TOKEN')
+        try {
+            await clienteAxios.post(`/api/productos`, {
+                nombre,
+                precio,
+                categoria_id,
+                disponible,
+                stock,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            toast.success('Creado Correctamente')
+        } catch (error) {
+            console.log(error)
+            toast.error('Error al crear')
+        }
+    }
+
     return (
         <QuioscoContext.Provider
             value={{
@@ -169,7 +219,10 @@ const QuioscoProvider = ({children}) => {
                 total,
                 handleSubmitNuevaOrden,
                 handleClickCompletarPedido,
-                handleClickEditarProducto
+                handleClickEditarProducto,
+                handleClickCrearProducto,
+                editarProducto,
+                handleClickActualizarStock
             }}
         >{children}</QuioscoContext.Provider>
     )

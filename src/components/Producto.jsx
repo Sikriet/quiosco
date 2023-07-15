@@ -42,7 +42,7 @@ export default function Producto({producto, botonAgregar = false, botonEditarPro
                     type="button"
                     className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
                     onClick={() => {
-                        handleClickModal();
+                        handleClickModal(true);
                         handleSetProducto(producto);
                     }}
                 >
